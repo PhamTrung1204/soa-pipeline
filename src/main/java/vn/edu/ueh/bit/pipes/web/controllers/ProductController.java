@@ -12,7 +12,7 @@ import vn.edu.ueh.bit.pipes.web.models.ProductViewModel;
 import vn.edu.ueh.bit.pipes.web.services.CartService;
 import vn.edu.ueh.bit.pipes.web.services.ProductService;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller

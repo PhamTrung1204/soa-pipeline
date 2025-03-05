@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import vn.edu.ueh.bit.pipes.filters.InventoryCheckFilter;
 import vn.edu.ueh.bit.pipes.web.models.ProductViewModel;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

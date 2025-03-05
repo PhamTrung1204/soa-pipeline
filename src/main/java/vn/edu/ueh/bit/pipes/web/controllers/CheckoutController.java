@@ -10,7 +10,7 @@ import vn.edu.ueh.bit.pipes.web.models.OrderViewModel;
 import vn.edu.ueh.bit.pipes.web.services.CartService;
 import vn.edu.ueh.bit.pipes.web.services.OrderService;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CheckoutController {

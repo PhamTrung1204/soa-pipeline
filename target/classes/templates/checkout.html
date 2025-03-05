@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thanh Toán</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+<div class="container py-5">
+    <header class="mb-4">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="display-6">Thanh Toán</h1>
+            </div>
+            <div class="col-md-6 text-end">
+                <a th:href="@{/cart}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Quay Lại Giỏ Hàng
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div th:if="${error}" class="alert alert-danger">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <span th:text="${error}">Lỗi thanh toán</span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <form th:action="@{/checkout}" method="post" th:object="${orderViewModel}">
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">
+                                <i class="bi bi-truck"></i> Thông Tin Giao Hàng
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Địa Chỉ Giao Hàng</label>
+                                <textarea id="address" name="address" th:field="*{address}"
+                                          class="form-control" rows="3" required
+                                          placeholder="Nhập địa chỉ giao hàng chi tiết"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">
+                                <i class="bi bi-credit-card"></i> Thông Tin Thanh Toán
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="customerId" class="form-label">Mã Khách Hàng</label>
+                                    <input type="number" id="customerId" name="customerId"
+                                           th:field="*{customerId}" class="form-control"
+                                           value="1" min="1">
+                                    <small class="form-text text-muted">
+                                        Để mặc định là 1 nếu là khách hàng mới
+                                    </small>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="cardNumber" class="form-label">Số Thẻ</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-credit-card"></i></span>
+                                        <input type="text" id="cardNumber" name="cardNumber"
+                                               th:field="*{cardNumber}" class="form-control"
+                                               placeholder="xxxx-xxxx-xxxx-xxxx"
+                                               pattern="\d{4}-\d{4}-\d{4}-\d{4}" required>
+                                    </div>
+                                    <small class="form-text text-muted">
+                                        Nhập số thẻ theo định dạng xxxx-xxxx-xxxx-xxxx
+                                    </small>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="cvv" class="form-label">CVV</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
+                                        <input type="text" id="cvv" name="cvv"
+                                               th:field="*{cvv}" class="form-control"
+                                               placeholder="123" pattern="\d{3}" required>
+                                    </div>
+                                    <small class="form-text text-muted">3 chữ số ở mặt sau thẻ</small>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-info">
+                                <strong><i class="bi bi-info-circle"></i> Thẻ Test:</strong>
+                                <ul class="mb-0">
+                                    <li>7485-2222-3456-2435</li>
+                                    <li>1234-5678-9012-3456</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a th:href="@{/cart}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Quay Lại Giỏ Hàng
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle"></i> Đặt Hàng
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-basket"></i> Tóm Tắt Đơn Hàng
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li th:each="item : ${cart}" class="list-group-item d-flex justify-content-between">
+                                <div>
+                                    <h6 th:text="${item.productName}">Tên Sản Phẩm</h6>
+                                    <small th:text="${item.quantity + ' x $' + #numbers.formatDecimal(item.price, 1, 2)}">
+                                        Số Lượng x Giá
+                                    </small>
+                                </div>
+                                <span>$<span th:text="${#numbers.formatDecimal(item.total, 1, 2)}">0.00</span></span>
+                            </li>
+                        </ul>
+                        <div class="card-footer bg-light mt-3">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="mb-0">Tổng Cộng:</h5>
+                                <h5 class="mb-0">
+                                    $<span th:text="${#numbers.formatDecimal(cartTotal, 1, 2)}">0.00</span>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

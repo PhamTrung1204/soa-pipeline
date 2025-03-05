@@ -26,6 +26,9 @@ public class PaymentVerificationFilter implements IFilter {
             return message;
         }
 
+        // Loại bỏ khoảng trắng thừa (nếu có)
+        payment.setCardNumber(payment.getCardNumber().trim());
+
         // Simple validation of CVV
         if (payment.getCvv() == null || !payment.getCvv().matches("\\d{3}")) {
             message.setSuccess(false);
