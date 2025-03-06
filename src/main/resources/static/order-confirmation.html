@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Xác Nhận Đơn Hàng</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-success text-white text-center">
+                    <h2 class="mb-0">
+                        <i class="bi bi-check-circle-fill"></i> Đặt Hàng Thành Công
+                    </h2>
+                </div>
+                <div class="card-body text-center">
+                    <i class="bi bi-bag-check display-3 text-success mb-4"></i>
+                    <h3 class="mb-3">Cảm ơn bạn đã đặt hàng!</h3>
+                    <p class="lead text-muted mb-4">
+                        Đơn hàng của bạn đã được xác nhận và đang được xử lý.
+                        Chúng tôi sẽ gửi thông tin chi tiết đến email của bạn.
+                    </p>
+
+                    <div class="alert alert-info">
+                        <strong>Thông Tin Đơn Hàng:</strong>
+                        <ul class="list-unstyled mt-2">
+                            <li><strong>Số Đơn Hàng:</strong> #<span th:text="${orderNumber ?: 'N/A'}">000000</span></li>
+                            <li><strong>Ngày Đặt Hàng:</strong> <span th:text="${#dates.format(#dates.createNow(), 'dd/MM/yyyy HH:mm')}">01/01/2024 00:00</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-center">
+                        <a th:href="@{/}" class="btn btn-primary me-md-2">
+                            <i class="bi bi-house"></i> Về Trang Chủ
+                        </a>
+                        <a th:href="@{/cart}" class="btn btn-outline-secondary">
+                            <i class="bi bi-cart"></i> Tiếp Tục Mua Sắm
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
