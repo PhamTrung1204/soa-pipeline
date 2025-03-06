@@ -9,6 +9,7 @@
 2. Mở terminal tại thư mục dự án
 3. Chạy lệnh: `mvn clean install`
 4. Chạy ứng dụng: `mvn spring-boot:run`
+5. Nếu dùng gradle thì chạy: gradle bootrun
 
 ## Truy Cập
 - Địa chỉ web: http://localhost:8080
